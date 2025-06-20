@@ -45,12 +45,19 @@ class FinancialService {
     return Asset.fromJson(response);
   }
 
+  // Função para buscar resultados de pesquisa por um símbolo/nome
+  Future<List<Map<String, dynamic>>> searchAssets(String keywords) async {
+    final response = await _get(function: 'SYMBOL_SEARCH', keywords: keywords);
+    final List<dynamic> bestMatches = response['bestMatches'] ?? [];
+    return bestMatches.cast<Map<String, dynamic>>();
+  }
+
   // --- Funções Auxiliares Privadas ---
   Future<Map<String, dynamic>> _get({
     required String function,
-    required String symbol,
+    String? symbol,
     String? interval,
-    String? keyboards,
+    String? keywords,
   }) async {
     if (_apiKey == null) {
       throw Exception('Chave da API não encontrada no arquivo .env');
@@ -58,10 +65,10 @@ class FinancialService {
 
     final Map<String, String> queryParams = {
       'function': function,
-      'symbol': symbol,
+      'symbol': symbol ?? '',
       'apikey': _apiKey!,
       if (interval != null) 'interval': interval,
-      if (keyboards != null) 'keywords': keyboards,
+      if (keywords != null) 'keywords': keywords,
     };
 
     final uri = Uri.parse(_baseUrl).replace(queryParameters: queryParams);
