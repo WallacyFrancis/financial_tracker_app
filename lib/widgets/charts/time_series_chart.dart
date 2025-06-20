@@ -37,7 +37,7 @@ class TimeSeriesChart extends ConsumerWidget {
                 spots: spots,
                 isCurved: true,
                 color: theme.colorScheme.primary,
-                barWidth: 3,
+                barWidth: 2,
                 isStrokeCapRound: true,
                 dotData: const FlDotData(
                   show: false,
@@ -51,7 +51,7 @@ class TimeSeriesChart extends ConsumerWidget {
             // Títulos e grades do gráfico
             titlesData: const FlTitlesData(
               leftTitles: AxisTitles(
-                sideTitles: SideTitles(showTitles: true, reservedSize: 40),
+                sideTitles: SideTitles(showTitles: true, reservedSize: 50),
               ),
               bottomTitles: AxisTitles(
                 sideTitles: SideTitles(showTitles: false),
